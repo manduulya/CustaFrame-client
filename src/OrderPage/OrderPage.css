@@ -1,0 +1,14 @@
+.OrderPage {
+  height: 100vh;
+  text-align: center;
+}
+.OrderPage h2 {
+  margin-top: 100px;
+}
+.FramedImage {
+  width: 60%;
+  margin: 0 auto;
+  height: 30%;
+  padding-top: 15%;
+  background: #cfcfcf;
+}

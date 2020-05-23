@@ -1,0 +1,15 @@
+.FrameOptions {
+  height: 100vh;
+  text-align: center;
+}
+.FrameImage {
+  width: 300px;
+  height: 150px;
+  background: #cfcfcf;
+  font-size: 16px;
+}
+.FrameOptions div {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin: 3px auto;
+}

@@ -1,0 +1,8 @@
+.LandingPage {
+  height: 100vh;
+  text-align: center;
+}
+.LandingPageLogo {
+  font-size: 3rem;
+  margin-top: 100px;
+}
