@@ -7,8 +7,11 @@
 }
 .FramedImage {
   width: 60%;
-  margin: 0 auto;
+  margin: 10px auto;
   height: 30%;
   padding-top: 15%;
   background: #cfcfcf;
+}
+button {
+  margin-bottom: 10px;
 }

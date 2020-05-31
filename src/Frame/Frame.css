@@ -1,0 +1,55 @@
+.framePiece {
+  border: 1px solid BLACK;
+  background-size: contain;
+}
+
+.horizontalFrame {
+  background-repeat: repeat-x;
+}
+
+.verticalFrame {
+  background-repeat: repeat-y;
+}
+
+#bottomFrame {
+  transform: rotate(180deg);
+}
+
+#leftFrame {
+  transform: rotate(180deg);
+}
+
+#FrameGrid,
+.framePiece {
+  box-sizing: border-box;
+}
+
+#FrameGrid {
+  display: grid;
+  width: fit-content;
+}
+
+#nwCorner {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+#neCorner {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+}
+
+#swCorner {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+}
+
+#seCorner {
+  grid-column: 3 / 4;
+  grid-row: 3 / 4;
+}
+
+#FrameGrid > image {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}

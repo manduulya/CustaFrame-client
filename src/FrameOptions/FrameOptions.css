@@ -9,7 +9,5 @@
   font-size: 16px;
 }
 .FrameOptions div {
-  display: grid;
-  grid-template-columns: auto auto;
-  margin: 3px auto;
+  margin: 5px auto;
 }
