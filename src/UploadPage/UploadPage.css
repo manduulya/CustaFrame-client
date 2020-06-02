@@ -3,8 +3,13 @@
   text-align: center;
 }
 .colorPicker {
-  width: 30px;
-  height: 30px;
-  float: left;
+  width: 60px;
+  height: 60px;
+
   margin: 3px;
+  display: inline-block;
+  vertical-align: middle;
+}
+#FrameGrid {
+  margin: 0 auto;
 }

@@ -50,11 +50,6 @@ export default class UploadPage extends Component {
   setSelectedFrame(selectedFrame) {
     this.setState({ selectedFrame });
   }
-  /*
-    setWidth(width) {
-    this.setState({ form: { ...this.state.form, width } });
-  }
- */
 
   border(f) {
     if (f.id === this.state.selectedFrame.id) return "3px solid black";
@@ -72,48 +67,55 @@ export default class UploadPage extends Component {
     } = this.state;
     return (
       <>
-        <form
-          encType="multipart/form-data"
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <label htmlFor="ImageUpload">Select an image</label>
-          <br />
-          <input
-            id="ImageUpload"
-            name="imageUpload"
-            type="file"
-            onChange={(e) => this.onImageUpload(e)}
-          />
-          <br />
-          <label htmlFor="frameWidth">Width:</label>
-          <br />
-          <input
-            type="number"
-            id="frameWidth"
-            step="0.1"
-            value={width}
-            name="frameWidth"
-            onChange={(e) => this.setWidth(e.currentTarget.value)}
-          />
-        </form>
+        <section className="UploadPage">
+          <form
+            encType="multipart/form-data"
+            onSubmit={(e) => e.preventDefault()}
+          >
+            <label htmlFor="ImageUpload">Select an image</label>
+            <br />
+            <input
+              id="ImageUpload"
+              name="imageUpload"
+              type="file"
+              onChange={(e) => this.onImageUpload(e)}
+            />
+            <br />
+            <label htmlFor="frameWidth">Width:</label>
+            <br />
+            <input
+              type="number"
+              id="frameWidth"
+              step="0.1"
+              value={width}
+              name="frameWidth"
+              onChange={(e) => this.setWidth(e.currentTarget.value)}
+            />
+          </form>
 
-        {frames.map((f) => (
-          <img
-            key={f.urlName}
-            className="colorPicker"
-            src={`${API_HOST}assets${f.dispImage}`}
-            style={{ border: this.border(f) }}
-            onClick={() => this.setSelectedFrame(f)}
-            alt={f.name}
-          ></img>
-        ))}
-        <br style={{ clear: "both" }} />
+          {frames.map((f) => (
+            <img
+              key={f.urlName}
+              className="colorPicker"
+              src={`${API_HOST}assets${f.dispImage}`}
+              style={{ border: this.border(f) }}
+              onClick={() => this.setSelectedFrame(f)}
+              alt={f.name}
+            ></img>
+          ))}
 
-        {image && <Frame src={image} frame={selectedFrame} width={width} />}
+          <br style={{ clear: "both" }} />
 
-        {image && (
-          <OrderForm width={width} height={height} aspectRatio={aspectRatio} />
-        )}
+          {image && <Frame src={image} frame={selectedFrame} width={width} />}
+
+          {image && (
+            <OrderForm
+              width={width}
+              height={height}
+              aspectRatio={aspectRatio}
+            />
+          )}
+        </section>
       </>
     );
   }

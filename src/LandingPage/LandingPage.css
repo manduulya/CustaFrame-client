@@ -1,18 +1,22 @@
 .LandingPage {
-  height: 100vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%) translateY(-50%);
+  margin: 0;
   text-align: center;
 }
 .LandingPageLogo {
   font-size: 2rem;
-  margin-top: 200px;
+
   width: 250px;
 }
 
 .LandingPage h2 {
   font-size: 20px;
-  margin-bottom: 30px;
 }
 .LandingPage p {
   font-size: 14px;
-  margin-bottom: 30px;
 }

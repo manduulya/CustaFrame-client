@@ -16,7 +16,7 @@ export default function LandingPage() {
       </div>
       <h2>Welcome to CustaFrame!</h2>
       <p>
-        This web app allows you to see how your artwok will look on specific
+        This web app allows you to see how your art-work will look on specific
         frame, before commiting any physical purchase. Therefore, you may make
         the best choice!
       </p>

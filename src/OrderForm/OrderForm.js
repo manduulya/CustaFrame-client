@@ -23,8 +23,10 @@ export default class OrderForm extends Component {
     const newWidth = Number(e.currentTarget.value);
     const ratio = newWidth / width;
     const newHeight = height * ratio;
+    const roundedWidth = Math.max(Math.ceil(newWidth * 10) / 10).toFixed(2);
+    const roundedHeight = Math.max(Math.ceil(newHeight * 10) / 10).toFixed(2);
 
-    this.setState({ width: newWidth, height: newHeight });
+    this.setState({ width: roundedWidth, height: roundedHeight });
   }
 
   formSubmitted = (e) => {
@@ -61,6 +63,7 @@ export default class OrderForm extends Component {
       });
   };
   render() {
+    const roundedWidth = width;
     const { width, height, email, message } = this.state;
     const button = "Submit";
 
