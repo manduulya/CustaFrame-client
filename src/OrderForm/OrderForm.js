@@ -63,7 +63,6 @@ export default class OrderForm extends Component {
       });
   };
   render() {
-    const roundedWidth = width;
     const { width, height, email, message } = this.state;
     const button = "Submit";
 
