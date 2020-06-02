@@ -1,17 +1,29 @@
 import React, { Component } from "react";
 import "./UploadPage.css";
 import Frame from "../Frame/Frame";
+import OrderForm from "../OrderForm/OrderForm";
 
+/*const API_HOST = "https://cryptic-anchorage-91632.herokuapp.com/api/";*/
 const API_HOST = "http://localhost:8000/api/";
+
+function imageInfo(img, baseWidth) {
+  const aspectRatio = img.height / img.width;
+  const height = baseWidth * aspectRatio;
+  return {
+    aspectRatio,
+    height,
+    width: baseWidth,
+  };
+}
 
 export default class UploadPage extends Component {
   state = {
-    form: {
-      image: null,
-      width: 1.0,
-    },
+    image: null,
+    width: 1.0,
+    height: null,
     selectedFrame: null,
     frames: [],
+    aspectRatio: null,
   };
 
   onImageUpload(e) {
@@ -19,7 +31,17 @@ export default class UploadPage extends Component {
     if (input.files && input.files[0]) {
       var reader = new FileReader();
       reader.onload = (e) => {
-        this.setState({ form: { ...this.state.form, image: e.target.result } });
+        const imageSource = e.target.result;
+        const img = new Image();
+
+        img.onload = () => {
+          this.setState({
+            image: imageSource,
+            ...imageInfo(img, this.state.width),
+          });
+        };
+
+        img.src = imageSource;
       };
       reader.readAsDataURL(input.files[0]);
     }
@@ -28,17 +50,26 @@ export default class UploadPage extends Component {
   setSelectedFrame(selectedFrame) {
     this.setState({ selectedFrame });
   }
-
-  setWidth(width) {
+  /*
+    setWidth(width) {
     this.setState({ form: { ...this.state.form, width } });
   }
+ */
+
   border(f) {
     if (f.id === this.state.selectedFrame.id) return "3px solid black";
     return "3px solid white";
   }
 
   render() {
-    const { form, frames, selectedFrame } = this.state;
+    const {
+      image,
+      width,
+      height,
+      frames,
+      selectedFrame,
+      aspectRatio,
+    } = this.state;
     return (
       <>
         <form
@@ -60,17 +91,17 @@ export default class UploadPage extends Component {
             type="number"
             id="frameWidth"
             step="0.1"
-            value={form.width}
+            value={width}
             name="frameWidth"
             onChange={(e) => this.setWidth(e.currentTarget.value)}
           />
         </form>
 
-        {frames.map((f, i) => (
+        {frames.map((f) => (
           <img
-            key={i}
+            key={f.urlName}
             className="colorPicker"
-            src={`${API_HOST}assets/${f.dispImage}`}
+            src={`${API_HOST}assets${f.dispImage}`}
             style={{ border: this.border(f) }}
             onClick={() => this.setSelectedFrame(f)}
             alt={f.name}
@@ -78,8 +109,10 @@ export default class UploadPage extends Component {
         ))}
         <br style={{ clear: "both" }} />
 
-        {form.image && (
-          <Frame src={form.image} frame={selectedFrame} width={form.width} />
+        {image && <Frame src={image} frame={selectedFrame} width={width} />}
+
+        {image && (
+          <OrderForm width={width} height={height} aspectRatio={aspectRatio} />
         )}
       </>
     );

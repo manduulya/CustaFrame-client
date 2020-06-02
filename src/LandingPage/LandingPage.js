@@ -10,6 +10,7 @@ export default function LandingPage() {
         <img
           className="LandingPageLogo"
           src={"http://localhost:8000/api/assets/logo/custaframelogo.png"}
+          /*"https://cryptic-anchorage-91632.herokuapp.com/api/assets/logo/custaframelogo.png"*/
           alt="custaframelogo"
         />
       </div>

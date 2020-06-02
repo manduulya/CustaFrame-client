@@ -1,6 +1,7 @@
 import React from "react";
 import "./Frame.css";
 
+// const API_HOST = "https://cryptic-anchorage-91632.herokuapp.com/api/";
 const API_HOST = "http://localhost:8000/api/";
 
 export default function Frame({ src, imageHeight, frame, thickness, width }) {
