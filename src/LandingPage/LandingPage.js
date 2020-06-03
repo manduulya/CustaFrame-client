@@ -1,6 +1,7 @@
 import React from "react";
 import "./LandingPage.css";
 import Button from "../Button/Button";
+import { Link } from "react-router-dom";
 
 export default function LandingPage() {
   const button = "Start";
@@ -20,7 +21,10 @@ export default function LandingPage() {
         frame, before commiting any physical purchase. Therefore, you may make
         the best choice!
       </p>
-      <Button button={button} />
+      <Link to="/upload">
+        {" "}
+        <Button button={button} />
+      </Link>
     </main>
   );
 }

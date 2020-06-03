@@ -23,10 +23,8 @@ export default class OrderForm extends Component {
     const newWidth = Number(e.currentTarget.value);
     const ratio = newWidth / width;
     const newHeight = height * ratio;
-    const roundedWidth = Math.max(Math.ceil(newWidth * 10) / 10).toFixed(2);
-    const roundedHeight = Math.max(Math.ceil(newHeight * 10) / 10).toFixed(2);
 
-    this.setState({ width: roundedWidth, height: roundedHeight });
+    this.setState({ width: newWidth, height: newHeight });
   }
 
   formSubmitted = (e) => {
@@ -62,6 +60,11 @@ export default class OrderForm extends Component {
         this.setState({ error: error.message });
       });
   };
+
+  round(value) {
+    return Math.max(Math.ceil(value * 10) / 10).toFixed(2);
+  }
+
   render() {
     const { width, height, email, message } = this.state;
     const button = "Submit";
@@ -71,7 +74,7 @@ export default class OrderForm extends Component {
         <label htmlFor="width">Width:</label>
         <input
           type="number"
-          value={width}
+          value={this.round(width)}
           step={0.1}
           id="width"
           onChange={(e) => this.changeWidth(e)}
@@ -80,7 +83,7 @@ export default class OrderForm extends Component {
         <label htmlFor="height">Height:</label>
         <input
           type="number"
-          value={height}
+          value={this.round(height)}
           step={0.1}
           id="height"
           onChange={(e) => this.changeWidth(e)}
@@ -90,11 +93,16 @@ export default class OrderForm extends Component {
         <input
           type="email"
           id="email"
+          value={email}
           onChange={(e) => this.changeWidth(e)}
         ></input>
         <br />
         <label htmlFor="message">Message:</label>
-        <textarea id="message" onChange={(e) => this.changeWidth(e)} />
+        <textarea
+          value={message}
+          id="message"
+          onChange={(e) => this.changeWidth(e)}
+        />
         <Button button={button} />
       </form>
     );
