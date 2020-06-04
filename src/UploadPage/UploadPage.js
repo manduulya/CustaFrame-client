@@ -69,10 +69,13 @@ export default class UploadPage extends Component {
       <>
         <section className="UploadPage">
           <form
+            className="UploadPageForm"
             encType="multipart/form-data"
             onSubmit={(e) => e.preventDefault()}
           >
-            <label htmlFor="ImageUpload">Select an image</label>
+            <label htmlFor="ImageUpload" className="UploadHeader">
+              Select an image
+            </label>
             <br />
             <input
               id="ImageUpload"
@@ -81,7 +84,7 @@ export default class UploadPage extends Component {
               onChange={(e) => this.onImageUpload(e)}
             />
             <br />
-            <label htmlFor="frameWidth">Width:</label>
+            {/* <label htmlFor="frameWidth">Width:</label>
             <br />
             <input
               type="number"
@@ -90,7 +93,7 @@ export default class UploadPage extends Component {
               value={width}
               name="frameWidth"
               onChange={(e) => this.setWidth(e.currentTarget.value)}
-            />
+            /> */}
           </form>
 
           {frames.map((f) => (
@@ -113,6 +116,7 @@ export default class UploadPage extends Component {
               width={width}
               height={height}
               aspectRatio={aspectRatio}
+              pricePerFeet={Number(selectedFrame.pricePerFeet)}
             />
           )}
         </section>

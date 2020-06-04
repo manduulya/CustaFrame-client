@@ -19,14 +19,15 @@
   transform: rotate(180deg);
 }
 
-#FrameGrid,
-.framePiece {
-  box-sizing: border-box;
-}
-
 #FrameGrid {
   display: grid;
   width: fit-content;
+  margin: 10px auto;
+}
+
+#FrameGrid,
+.framePiece {
+  box-sizing: border-box;
 }
 
 #nwCorner {

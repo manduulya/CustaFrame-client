@@ -47,7 +47,7 @@ export default function Frame({ src, imageHeight, frame, thickness, width }) {
         className="framePiece verticalFrame"
         style={fStyle("verticalFrame")}
       ></div>
-      <img src={src} alt="" height={imageHeight}></img>
+      <img src={src} alt="" height={imageHeight} className="userImage"></img>
       <div
         id="leftFrame"
         className="framePiece verticalFrame"

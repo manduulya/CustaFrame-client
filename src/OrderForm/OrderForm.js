@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Button from "../Button/Button";
+import "./OrderForm.css";
 
 const API_HOST = "http://localhost:8000/api/";
 
@@ -30,10 +31,10 @@ export default class OrderForm extends Component {
   formSubmitted = (e) => {
     e.preventDefault();
     const purchaseOrder = {
-      width: e.target["width"].value.trim(),
-      height: e.target["height"].value.trim(),
-      email: e.target["email"].value.trim(),
-      message: e.target["message"].value.trim(),
+      width: e.target["width"].value,
+      height: e.target["height"].value,
+      email: e.target["email"].value,
+      message: e.target["message"].value,
     };
 
     let validationError = this.validate(purchaseOrder);
@@ -42,7 +43,7 @@ export default class OrderForm extends Component {
       return;
     }
 
-    fetch(`${API_HOST}/pos`, {
+    fetch(`${API_HOST}po`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -65,6 +66,19 @@ export default class OrderForm extends Component {
     return Math.max(Math.ceil(value * 10) / 10).toFixed(2);
   }
 
+  handleChange = (e) => {
+    this.setState({ [e.target.getAttribute("name")]: e.target.value });
+  };
+
+  calculatePrice() {
+    console.log(this.state.height, this.state.width);
+    return (
+      (this.state.height + this.state.width) *
+      2 *
+      this.props.pricePerFeet
+    ).toFixed(2);
+  }
+
   render() {
     const { width, height, email, message } = this.state;
     const button = "Submit";
@@ -79,7 +93,7 @@ export default class OrderForm extends Component {
           id="width"
           onChange={(e) => this.changeWidth(e)}
         ></input>
-        <br />
+
         <label htmlFor="height">Height:</label>
         <input
           type="number"
@@ -89,19 +103,23 @@ export default class OrderForm extends Component {
           onChange={(e) => this.changeWidth(e)}
         ></input>
         <br />
+        <span>Total: ${this.calculatePrice()}</span>
         <label htmlFor="email">Your email:</label>
         <input
           type="email"
           id="email"
+          name="email"
           value={email}
-          onChange={(e) => this.changeWidth(e)}
+          onChange={(e) => this.handleChange(e)}
         ></input>
         <br />
         <label htmlFor="message">Message:</label>
+        <br />
         <textarea
           value={message}
           id="message"
-          onChange={(e) => this.changeWidth(e)}
+          name="message"
+          onChange={(e) => this.handleChange(e)}
         />
         <Button button={button} />
       </form>

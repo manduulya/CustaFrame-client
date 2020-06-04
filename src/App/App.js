@@ -10,7 +10,6 @@ function App() {
       <header className="App-header"></header>
       <Route exact path="/" component={LandingPage} />
       <Route exact path="/upload" component={UploadPage} />
-      <footer className="footer">Enkhmanlai Enkhbold 2020</footer>
     </main>
   );
 }
