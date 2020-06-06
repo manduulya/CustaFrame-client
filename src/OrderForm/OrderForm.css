@@ -1,0 +1,22 @@
+#orderForm {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  line-height: 2em;
+  width: 100%;
+  background-color: #ababab;
+  padding: 15px;
+}
+#width,
+#height {
+  width: 60px;
+  margin-left: 10px;
+}
+#width {
+  margin-right: 20px;
+}
+#orderForm input,
+textarea {
+  border-radius: 5px;
+  border: none;
+}
