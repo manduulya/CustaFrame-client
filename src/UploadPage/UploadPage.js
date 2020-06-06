@@ -16,17 +16,29 @@ function imageInfo(img, baseWidth) {
   };
 }
 
+function calculatePrice(width, height, pricePerFeet) {
+  console.log(height, width);
+  return ((height + width) * 2 * pricePerFeet).toFixed(2);
+}
+
 export default class UploadPage extends Component {
   state = {
     image: null,
-    width: 1.0,
-    height: null,
     selectedFrame: null,
     frames: [],
-    aspectRatio: null,
+    form: {
+      aspectRatio: null,
+      width: 1.0,
+      height: null,
+      email: "",
+      message: "",
+      name: "",
+    },
   };
 
   onImageUpload(e) {
+    const form = this.state.form;
+
     const input = e.currentTarget;
     if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -36,8 +48,8 @@ export default class UploadPage extends Component {
 
         img.onload = () => {
           this.setState({
+            form: { ...form, ...imageInfo(img, this.state.width) },
             image: imageSource,
-            ...imageInfo(img, this.state.width),
           });
         };
 
@@ -56,15 +68,45 @@ export default class UploadPage extends Component {
     return "3px solid white";
   }
 
+  changeForm(data) {
+    this.setState({ form: { ...this.state.form, ...data } });
+  }
+
+  submitData() {
+    const { form, image, selectedFrame } = this.state;
+
+    return fetch(`${API_HOST}po`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: {
+        customer_name: form.name,
+        width: form.width,
+        height: form.height,
+        email: form.email,
+        message: form.message,
+        image,
+        frame_name: selectedFrame.name,
+        total: calculatePrice(
+          form.width,
+          form.height,
+          this.setSelectedFrame.pricePerFeet
+        ),
+      },
+    })
+      .then((res) => {
+        if (!res.ok) return res.json().then((e) => Promise.reject(e));
+        return res.json();
+      })
+      .then((purchaseOrder) => {
+        this.context.addPurchaseOrder(purchaseOrder);
+        this.props.history.push(`/pos`);
+      });
+  }
+
   render() {
-    const {
-      image,
-      width,
-      height,
-      frames,
-      selectedFrame,
-      aspectRatio,
-    } = this.state;
+    const { image, frames, selectedFrame, form } = this.state;
     return (
       <>
         <section className="UploadPage">
@@ -109,14 +151,16 @@ export default class UploadPage extends Component {
 
           <br style={{ clear: "both" }} />
 
-          {image && <Frame src={image} frame={selectedFrame} width={width} />}
+          {image && (
+            <Frame src={image} frame={selectedFrame} width={form.width} />
+          )}
 
           {image && (
             <OrderForm
-              width={width}
-              height={height}
-              aspectRatio={aspectRatio}
+              {...form}
               pricePerFeet={Number(selectedFrame.pricePerFeet)}
+              changeForm={(data) => this.changeForm(data)}
+              submitData={() => this.submitData()}
             />
           )}
         </section>

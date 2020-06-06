@@ -5,13 +5,14 @@ import "./OrderForm.css";
 const API_HOST = "http://localhost:8000/api/";
 
 export default class OrderForm extends Component {
-  state = {
+  state = {};
+  /* state = {
     width: this.props.width,
     height: this.props.height,
     email: "",
     message: "",
     error: null,
-  };
+  }; */
 
   validate(purchaseOrder) {
     if (purchaseOrder.email.length < 3)
@@ -20,12 +21,12 @@ export default class OrderForm extends Component {
   }
 
   changeWidth(e) {
-    const { width, height } = this.state;
+    const { width, height } = this.props;
     const newWidth = Number(e.currentTarget.value);
     const ratio = newWidth / width;
     const newHeight = height * ratio;
 
-    this.setState({ width: newWidth, height: newHeight });
+    this.props.changeForm({ width: newWidth, height: newHeight });
   }
 
   formSubmitted = (e) => {
@@ -43,23 +44,9 @@ export default class OrderForm extends Component {
       return;
     }
 
-    fetch(`${API_HOST}po`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-    })
-      .then((res) => {
-        if (!res.ok) return res.json().then((e) => Promise.reject(e));
-        return res.json();
-      })
-      .then((purchaseOrder) => {
-        this.context.addPurchaseOrder(purchaseOrder);
-        this.props.history.push(`/pos`);
-      })
-      .catch((error) => {
-        this.setState({ error: error.message });
-      });
+    this.props.submitData().catch((error) => {
+      this.setState({ error: error.message });
+    });
   };
 
   round(value) {
@@ -67,20 +54,16 @@ export default class OrderForm extends Component {
   }
 
   handleChange = (e) => {
-    this.setState({ [e.target.getAttribute("name")]: e.target.value });
+    this.props.changeForm({ [e.target.getAttribute("name")]: e.target.value });
   };
 
-  calculatePrice() {
-    console.log(this.state.height, this.state.width);
-    return (
-      (this.state.height + this.state.width) *
-      2 *
-      this.props.pricePerFeet
-    ).toFixed(2);
+  calculatePrice(width, height, pricePerFeet) {
+    console.log(height, width);
+    return ((height + width) * 2 * pricePerFeet).toFixed(2);
   }
 
   render() {
-    const { width, height, email, message } = this.state;
+    const { width, height, email, message } = this.props;
     const button = "Submit";
 
     return (
@@ -103,7 +86,14 @@ export default class OrderForm extends Component {
           onChange={(e) => this.changeWidth(e)}
         ></input>
         <br />
-        <span>Total: ${this.calculatePrice()}</span>
+        <span>
+          Total: $
+          {this.calculatePrice(
+            this.props.width,
+            this.props.height,
+            this.props.pricePerFeet
+          )}
+        </span>
         <label htmlFor="email">Your email:</label>
         <input
           type="email"
