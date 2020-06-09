@@ -2,18 +2,10 @@ import React, { Component } from "react";
 import Button from "../Button/Button";
 import "./OrderForm.css";
 
-const API_HOST = "http://localhost:8000/api/";
-
 export default class OrderForm extends Component {
-  state = {};
-  /* state = {
-    width: this.props.width,
-    height: this.props.height,
-    email: "",
-    message: "",
-    error: null,
-  }; */
-
+  state = {
+    uploadStatus: "",
+  };
   validate(purchaseOrder) {
     if (purchaseOrder.email.length < 3)
       return "email has to be valid email address";
@@ -24,7 +16,7 @@ export default class OrderForm extends Component {
     const { width, height } = this.props;
     const newWidth = Number(e.currentTarget.value);
     const ratio = newWidth / width;
-    const newHeight = height * ratio;
+    const newHeight = Number(height * ratio);
 
     this.props.changeForm({ width: newWidth, height: newHeight });
   }
@@ -36,6 +28,7 @@ export default class OrderForm extends Component {
       height: e.target["height"].value,
       email: e.target["email"].value,
       message: e.target["message"].value,
+      name: e.target["name"].value,
     };
 
     let validationError = this.validate(purchaseOrder);
@@ -57,50 +50,51 @@ export default class OrderForm extends Component {
     this.props.changeForm({ [e.target.getAttribute("name")]: e.target.value });
   };
 
-  calculatePrice(width, height, pricePerFeet) {
-    console.log(height, width);
-    return ((height + width) * 2 * pricePerFeet).toFixed(2);
-  }
-
   render() {
-    const { width, height, email, message } = this.props;
+    const { width, height, email, message, name, selectedFile } = this.props;
     const button = "Submit";
+    console.log(selectedFile, width, email);
 
     return (
       <form id="orderForm" onSubmit={(e) => this.formSubmitted(e)}>
-        <label htmlFor="width">Width:</label>
+        <label htmlFor="width">Width: (ft) </label>
         <input
           type="number"
           value={this.round(width)}
           step={0.1}
           id="width"
           onChange={(e) => this.changeWidth(e)}
+          required
         ></input>
 
-        <label htmlFor="height">Height:</label>
+        <label htmlFor="height">Height: (ft) </label>
         <input
           type="number"
           value={this.round(height)}
           step={0.1}
           id="height"
           onChange={(e) => this.changeWidth(e)}
+          required
         ></input>
         <br />
-        <span>
-          Total: $
-          {this.calculatePrice(
-            this.props.width,
-            this.props.height,
-            this.props.pricePerFeet
-          )}
-        </span>
-        <label htmlFor="email">Your email:</label>
+        <label htmlFor="email">Your email: </label>
         <input
           type="email"
           id="email"
           name="email"
           value={email}
           onChange={(e) => this.handleChange(e)}
+          required
+        ></input>
+        <br />
+        <label htmlFor="name">Your name: </label>
+        <input
+          type="name"
+          id="name"
+          name="name"
+          value={name}
+          onChange={(e) => this.handleChange(e)}
+          required
         ></input>
         <br />
         <label htmlFor="message">Message:</label>
@@ -110,7 +104,24 @@ export default class OrderForm extends Component {
           id="message"
           name="message"
           onChange={(e) => this.handleChange(e)}
+          required
         />
+        <br />
+        <span className="totalPrice">
+          Total: $
+          {this.props.calculatePrice(
+            this.props.width,
+            this.props.height,
+            this.props.pricePerFeet
+          )}
+          <p className="totalPriceDescription">
+            (This price includes back board, front glass, frame mounting, and
+            all other labors.)
+          </p>
+        </span>
+        <button type="button" onClick={(e) => this.props.uploadHandler(e)}>
+          Upload
+        </button>
         <Button button={button} />
       </form>
     );
