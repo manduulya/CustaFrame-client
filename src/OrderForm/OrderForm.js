@@ -3,9 +3,13 @@ import Button from "../Button/Button";
 import "./OrderForm.css";
 
 export default class OrderForm extends Component {
-  state = {
-    uploadStatus: "",
-  };
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     uploadStatus: false,
+  //   };
+  // }
+
   validate(purchaseOrder) {
     if (purchaseOrder.email.length < 3)
       return "email has to be valid email address";
@@ -50,10 +54,13 @@ export default class OrderForm extends Component {
     this.props.changeForm({ [e.target.getAttribute("name")]: e.target.value });
   };
 
+  // displaySubmitButton = () => {
+  //   this.setState({ uploadStatus: true });
+  // };
+
   render() {
-    const { width, height, email, message, name, selectedFile } = this.props;
+    const { width, height, email, message, name } = this.props;
     const button = "Submit";
-    console.log(selectedFile, width, email);
 
     return (
       <form id="orderForm" onSubmit={(e) => this.formSubmitted(e)}>
@@ -119,10 +126,19 @@ export default class OrderForm extends Component {
             all other labors.)
           </p>
         </span>
-        <button type="button" onClick={(e) => this.props.uploadHandler(e)}>
-          Upload
-        </button>
-        <Button button={button} />
+        <div>
+          {/* <button
+            type="button"
+            // onClick={(e) => this.props.uploadHandler(e)}
+            onClick={() => this.displaySubmitButton()}
+          >
+            Upload
+          </button> */}
+          <Button button={button} />
+          {/* {this.state.uploadStatus === true && (
+            <Button button={button} uploadStatus={this.state.uploadStatus} />
+          )} */}
+        </div>
       </form>
     );
   }
