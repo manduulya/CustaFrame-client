@@ -129,7 +129,7 @@ export default class OrderForm extends Component {
         <div>
           {/* <button
             type="button"
-            // onClick={(e) => this.props.uploadHandler(e)}
+            onClick={(e) => this.props.uploadHandler(e)}
             onClick={() => this.displaySubmitButton()}
           >
             Upload
