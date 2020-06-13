@@ -8,11 +8,11 @@ https://custaframe-client.manduulya.now.sh/
 
 
 ## TECHNOLOGIES USED
-React.js
-CSS
-Node.js
-Express
-PostgreSQL
+* React.js
+* CSS
+* Node.js
+* Express
+* PostgreSQL
 
 ### SCREENSHOT
 1. Landing Page
