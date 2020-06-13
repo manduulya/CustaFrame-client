@@ -4,8 +4,8 @@ import Frame from "../Frame/Frame";
 import OrderForm from "../OrderForm/OrderForm";
 import axios from "axios";
 
-// const API_HOST = "https://cryptic-anchorage-91632.herokuapp.com/api/";
-const API_HOST = "http://localhost:8000/api/";
+const API_HOST = "https://cryptic-anchorage-91632.herokuapp.com/api/";
+// const API_HOST = "http://localhost:8000/api/";
 
 function imageInfo(img, baseWidth) {
   const aspectRatio = img.height / img.width;
@@ -33,7 +33,7 @@ export default class UploadPage extends Component {
     },
     error: null,
   };
-
+  //calculating the total price from user's width and height
   calculatePrice() {
     return (
       (this.state.form.height + this.state.form.width) *
@@ -41,11 +41,11 @@ export default class UploadPage extends Component {
       this.state.selectedFrame.pricePerFeet
     ).toFixed(2);
   }
+  //on image upload getting values from the image for the width and height
   onImageUpload(event) {
     const form = this.state.form;
     const input = event.currentTarget;
     this.setState({ selectedFile: input.files[0] });
-    console.log(input.files);
 
     if (input.files && input.files[0]) {
       var reader = new FileReader();
@@ -65,20 +65,22 @@ export default class UploadPage extends Component {
       reader.readAsDataURL(input.files[0]);
     }
   }
-
+  //setting the frame as the selected one
   setSelectedFrame(selectedFrame) {
     this.setState({ selectedFrame });
   }
-
+  //setting up a border around the selected from from the list
   border(f) {
     if (f.id === this.state.selectedFrame.id) return "3px solid black";
     return "3px solid white";
   }
 
+  //changing all states inside the form based on the user input.
   changeForm(data) {
     this.setState({ form: { ...this.state.form, ...data } });
   }
 
+  //making fetch req
   submitData() {
     const { form, selectedFrame, selectedFile } = this.state;
 
@@ -110,7 +112,7 @@ export default class UploadPage extends Component {
         this.props.history.push(`/exit`);
       });
   }
-
+  //upload handler calls axios request to make POST request to upload an image to AWS S3
   uploadHandler = (e) => {
     const data = new FormData(); // If file selected
     if (this.state.selectedFile) {
@@ -134,26 +136,20 @@ export default class UploadPage extends Component {
               if ("LIMIT_FILE_SIZE" === response.data.error.code) {
                 this.ocShowAlert("Max size: 2MB", "red");
               } else {
-                console.log(response.data); // If not the given file type
               }
             } else {
               // Success
               let fileName = response.data;
-              console.log("fileName", fileName);
               this.setState({ selectedFile: fileName.location });
-              console.log(this.state.selectedFile);
               this.setState({ uploadStatus: true });
-              console.log(this.state.uploadStatus);
             }
           }
         })
         .catch((error) => {
           // If another error
-          console.log(error);
         });
     } else {
       // if file not selected throw error
-      console.log("error");
     }
   };
 
@@ -212,7 +208,7 @@ export default class UploadPage extends Component {
       </>
     );
   }
-
+  //fetching from static files from express
   componentDidMount() {
     fetch(`${API_HOST}frames`)
       .then((r) => r.json())

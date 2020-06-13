@@ -1,25 +1,26 @@
 import React from "react";
 import "./Frame.css";
 
-// const API_HOST = "https://cryptic-anchorage-91632.herokuapp.com/api/";
-const API_HOST = "http://localhost:8000/api/";
+const API_HOST = "https://cryptic-anchorage-91632.herokuapp.com/api/";
+// const API_HOST = "http://localhost:8000/api/";
 
 export default function Frame({ src, imageHeight, frame, thickness, width }) {
   const frameSize = Math.floor((thickness / width) * imageHeight);
-
+  //setting up a frame using css grid
   const gridStyle = {
     gridTemplateRows: `${frameSize}px auto ${frameSize}px`,
     gridTempColumns: `${frameSize}px auto ${frameSize}px`,
   };
-
+  //setting up a corners
   const cornerStyle = {
     width: `${frameSize}px`,
     height: `${frameSize}px`,
   };
-
+  //setting up a frame
   const fStyle = (name) => ({
     backgroundImage: `url(${API_HOST}assets/${frame.urlName}/${name}.png)`,
   });
+  //setting up a corner
   const cStyle = (name) => ({
     ...cornerStyle,
     backgroundImage: `url(${API_HOST}assets/${frame.urlName}/${name}.png)`,
@@ -71,7 +72,7 @@ export default function Frame({ src, imageHeight, frame, thickness, width }) {
     </div>
   );
 }
-
+//default height is set to 500 and it changes to smaller with max-width media query for responsiveness in the css
 Frame.defaultProps = {
   imageHeight: 500,
   thickness: 0.1,

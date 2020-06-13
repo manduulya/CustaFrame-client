@@ -3,19 +3,13 @@ import Button from "../Button/Button";
 import "./OrderForm.css";
 
 export default class OrderForm extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     uploadStatus: false,
-  //   };
-  // }
-
+  //validating purchase order's email address
   validate(purchaseOrder) {
     if (purchaseOrder.email.length < 3)
       return "email has to be valid email address";
     return null;
   }
-
+  //changing width with aspect ratio
   changeWidth(e) {
     const { width, height } = this.props;
     const newWidth = Number(e.currentTarget.value);
@@ -24,7 +18,7 @@ export default class OrderForm extends Component {
 
     this.props.changeForm({ width: newWidth, height: newHeight });
   }
-
+  //form submitted on button
   formSubmitted = (e) => {
     e.preventDefault();
     const purchaseOrder = {
@@ -45,18 +39,14 @@ export default class OrderForm extends Component {
       this.setState({ error: error.message });
     });
   };
-
+  //rounding too long decimals to hundredth
   round(value) {
     return Math.max(Math.ceil(value * 10) / 10).toFixed(2);
   }
-
+  //getting values from user input
   handleChange = (e) => {
     this.props.changeForm({ [e.target.getAttribute("name")]: e.target.value });
   };
-
-  // displaySubmitButton = () => {
-  //   this.setState({ uploadStatus: true });
-  // };
 
   render() {
     const { width, height, email, message, name } = this.props;
@@ -127,17 +117,7 @@ export default class OrderForm extends Component {
           </p>
         </span>
         <div>
-          {/* <button
-            type="button"
-            onClick={(e) => this.props.uploadHandler(e)}
-            onClick={() => this.displaySubmitButton()}
-          >
-            Upload
-          </button> */}
           <Button button={button} />
-          {/* {this.state.uploadStatus === true && (
-            <Button button={button} uploadStatus={this.state.uploadStatus} />
-          )} */}
         </div>
       </form>
     );
