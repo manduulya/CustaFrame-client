@@ -47,10 +47,16 @@ https://custaframe-client.manduulya.now.sh/
 ### SCREENSHOT
 
 1. Landing Page
-   logo
+   ![](screenshots/LandingPage.png)
 
-2.Upload Page
-logo
+2. Upload Page
+   ![](screenshots/UploadPage.png)
 
-3.Exit Page
-logo
+3. After upload
+   ![](screenshots/AfterUpload.png)
+
+4. Order Form
+   ![](screenshots/Form.png)
+
+5. Exit Page
+   ![](screenshots/ExitPage.png)
