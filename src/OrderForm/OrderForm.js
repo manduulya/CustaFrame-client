@@ -115,7 +115,7 @@ export default class OrderForm extends Component {
         />
         <br />
         <span className="totalPrice">
-          Total: $
+          Your total: $
           {this.props.calculatePrice(
             this.props.width,
             this.props.height,

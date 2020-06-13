@@ -7,4 +7,44 @@
   transform: translateX(-50%) translateY(-50%);
   margin: 0;
   text-align: center;
+  animation: myFade 1s;
+  -moz-animation: myFade 1s; /* Firefox */
+  -webkit-animation: myFade 1s; /* Safari and Chrome */
+  -o-animation: myFade 1s; /* Opera */
+}
+
+@keyframes myFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes myFade {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes myFade {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes myFade {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

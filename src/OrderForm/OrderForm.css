@@ -1,31 +1,102 @@
 #orderForm {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  line-height: 2em;
-  width: 100%;
-  background-color: #ababab;
+  line-height: 2.25em;
+  width: 80%;
+  background-color: #f1f1f2;
+  border-radius: 15px;
+  border: 8px double #1995ad;
   padding: 15px;
+  margin: 20px auto;
+  font-size: 14px;
+  animation: myFade 4s;
+  -moz-animation: myFade 4s; /* Firefox */
+  -webkit-animation: myFade 4s; /* Safari and Chrome */
+  -o-animation: myFade 4s; /* Opera */
 }
-#width,
-#height {
-  width: 60px;
-  margin-left: 10px;
+
+@keyframes myFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-#width {
-  margin-right: 20px;
+@-moz-keyframes myFade {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
-#orderForm input,
-textarea {
+@-webkit-keyframes myFade {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes myFade {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+textarea,
+input {
   border-radius: 5px;
   border: none;
 }
-.totalPrice {
-  font-size: 1.5em;
-  font-weight: 400;
-  line-height: normal;
+textarea {
+  width: 100%;
+  height: 100px;
 }
 .totalPriceDescription {
   font-size: 12px;
   margin-top: 0;
+}
+#width,
+#height {
+  width: 40px;
+  margin-left: 5px;
+}
+#width {
+  margin-right: 5px;
+}
+@media only screen and (min-width: 450px) {
+  #orderForm {
+    width: 70%;
+    background-color: #f1f1f2;
+    border-radius: 15px;
+    border: 8px double #1995ad;
+    padding: 15px;
+    margin: 20px auto;
+  }
+  #width,
+  #height {
+    width: 60px;
+    margin-left: 10px;
+  }
+  #width {
+    margin-right: 20px;
+  }
+  textarea {
+    width: 80%;
+    height: 100px;
+  }
+  #orderForm input,
+  .totalPrice {
+    font-size: 1.5em;
+    font-weight: 400;
+    line-height: normal;
+  }
+  .totalPriceDescription {
+    font-size: 12px;
+  }
 }

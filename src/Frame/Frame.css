@@ -1,5 +1,4 @@
 .framePiece {
-  border: 1px solid BLACK;
   background-size: contain;
 }
 
@@ -23,6 +22,46 @@
   display: grid;
   width: fit-content;
   margin: 10px auto;
+  animation: myFade 1s;
+  -moz-animation: myFade 1s; /* Firefox */
+  -webkit-animation: myFade 1s; /* Safari and Chrome */
+  -o-animation: myFade 1s; /* Opera */
+}
+
+@keyframes myFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes myFade {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes myFade {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes myFade {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 #FrameGrid,
@@ -53,4 +92,16 @@
 #FrameGrid > image {
   grid-column: 2 / 3;
   grid-row: 2 / 3;
+}
+@media only screen and (max-width: 450px) {
+  .userImage {
+    width: 100%;
+    height: auto;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .userImage {
+    width: 100%;
+    height: auto;
+  }
 }

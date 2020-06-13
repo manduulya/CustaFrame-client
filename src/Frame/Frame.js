@@ -1,8 +1,8 @@
 import React from "react";
 import "./Frame.css";
 
-const API_HOST = "https://cryptic-anchorage-91632.herokuapp.com/api/";
-// const API_HOST = "http://localhost:8000/api/";
+// const API_HOST = "https://cryptic-anchorage-91632.herokuapp.com/api/";
+const API_HOST = "http://localhost:8000/api/";
 
 export default function Frame({ src, imageHeight, frame, thickness, width }) {
   const frameSize = Math.floor((thickness / width) * imageHeight);
@@ -73,6 +73,6 @@ export default function Frame({ src, imageHeight, frame, thickness, width }) {
 }
 
 Frame.defaultProps = {
-  imageHeight: 300,
+  imageHeight: 500,
   thickness: 0.1,
 };

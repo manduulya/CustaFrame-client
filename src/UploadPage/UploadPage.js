@@ -4,8 +4,8 @@ import Frame from "../Frame/Frame";
 import OrderForm from "../OrderForm/OrderForm";
 import axios from "axios";
 
-const API_HOST = "https://cryptic-anchorage-91632.herokuapp.com/api/";
-// const API_HOST = "http://localhost:8000/api/";
+// const API_HOST = "https://cryptic-anchorage-91632.herokuapp.com/api/";
+const API_HOST = "http://localhost:8000/api/";
 
 function imageInfo(img, baseWidth) {
   const aspectRatio = img.height / img.width;

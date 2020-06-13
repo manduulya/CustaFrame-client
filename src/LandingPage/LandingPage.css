@@ -7,10 +7,49 @@
   transform: translateX(-50%) translateY(-50%);
   margin: 0;
   text-align: center;
+  animation: myFade 1.5s;
+  -moz-animation: myFade 1.5s; /* Firefox */
+  -webkit-animation: myFade 1.5s; /* Safari and Chrome */
+  -o-animation: myFade 1.5s; /* Opera */
 }
-.LandingPageLogo {
-  font-size: 2rem;
 
+@keyframes myFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-moz-keyframes myFade {
+  /* Firefox */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes myFade {
+  /* Safari and Chrome */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@-o-keyframes myFade {
+  /* Opera */
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.LandingPageLogo {
   width: 250px;
 }
 
@@ -19,4 +58,10 @@
 }
 .LandingPage p {
   font-size: 14px;
+}
+
+@media only screen and (min-width: 450px) {
+  .LandingPageLogo {
+    width: 350px;
+  }
 }
