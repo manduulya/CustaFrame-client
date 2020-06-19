@@ -15,8 +15,12 @@ export default class OrderForm extends Component {
     const newWidth = Number(e.currentTarget.value);
     const ratio = newWidth / width;
     const newHeight = Number(height * ratio);
-
     this.props.changeForm({ width: newWidth, height: newHeight });
+  }
+  roundWidth(e) {
+    this.props.changeForm({
+      width: Math.max(this.round(this.props.width), 1.0),
+    });
   }
   //form submitted on button
   formSubmitted = (e) => {
@@ -41,7 +45,7 @@ export default class OrderForm extends Component {
   };
   //rounding too long decimals to hundredth
   round(value) {
-    return Math.max(Math.ceil(value * 10) / 10).toFixed(2);
+    return Number(value.toFixed(2));
   }
   //getting values from user input
   handleChange = (e) => {
@@ -49,7 +53,7 @@ export default class OrderForm extends Component {
   };
 
   render() {
-    const { width, height, email, message, name } = this.props;
+    const { width, aspectRatio, email, message, name } = this.props;
     const button = "Submit";
 
     return (
@@ -57,23 +61,31 @@ export default class OrderForm extends Component {
         <label htmlFor="width">Width: (ft) </label>
         <input
           type="number"
-          value={this.round(width)}
+          value={width}
           step={0.1}
           id="width"
+          min="1.0"
           onChange={(e) => this.changeWidth(e)}
+          onBlur={() => this.roundWidth()}
           required
         ></input>
 
         <label htmlFor="height">Height: (ft) </label>
         <input
           type="number"
-          value={this.round(height)}
+          value={this.round(width * aspectRatio)}
           step={0.1}
           id="height"
-          onChange={(e) => this.changeWidth(e)}
+          min="1.0"
+          disabled="disabled"
           required
         ></input>
         <br />
+        <p className="totalPriceDescription">
+          (Please select minimum of 1.00 ft width!
+          <br />
+          You may only enter the width in order to keep the aspect ratio)
+        </p>
         <label htmlFor="email">Your email: </label>
         <input
           type="email"

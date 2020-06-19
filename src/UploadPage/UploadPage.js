@@ -9,10 +9,8 @@ const API_HOST = "https://cryptic-anchorage-91632.herokuapp.com/api/";
 
 function imageInfo(img, baseWidth) {
   const aspectRatio = img.height / img.width;
-  const height = baseWidth * aspectRatio;
   return {
     aspectRatio,
-    height,
     width: baseWidth,
   };
 }
@@ -26,17 +24,19 @@ export default class UploadPage extends Component {
     form: {
       aspectRatio: null,
       width: 1.0,
-      height: null,
       email: "",
       message: "",
       name: "",
     },
     error: null,
   };
+  height() {
+    return this.state.form.width * this.state.form.aspectRatio;
+  }
   //calculating the total price from user's width and height
   calculatePrice() {
     return (
-      (this.state.form.height + this.state.form.width) *
+      (this.height() + this.state.form.width) *
       2 *
       this.state.selectedFrame.pricePerFeet
     ).toFixed(2);
@@ -95,13 +95,9 @@ export default class UploadPage extends Component {
         customers_file: selectedFile,
         frame_name: selectedFrame.name,
         width: form.width,
-        height: form.height,
+        height: this.height(),
         note: form.message,
-        total_price: this.calculatePrice(
-          form.width,
-          form.height,
-          this.setSelectedFrame.pricePerFeet
-        ),
+        total_price: this.calculatePrice(),
       }),
     })
       .then((res) => {

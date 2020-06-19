@@ -25,7 +25,7 @@ export default function Frame({ src, imageHeight, frame, thickness, width }) {
     ...cornerStyle,
     backgroundImage: `url(${API_HOST}assets/${frame.urlName}/${name}.png)`,
   });
-
+  console.log(frame.urlName);
   return (
     <div id="FrameGrid" style={gridStyle}>
       <div
